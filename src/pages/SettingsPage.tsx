@@ -1,8 +1,9 @@
 import React, { SyntheticEvent } from "react";
+import OctoClient, { RepoType } from "../OctoClient";
 import _ from "lodash";
 
 import useQuery from "../hooks/useQuery";
-import OctoClient, { RepoType } from "../OctoClient";
+
 import useData from "../hooks/useData";
 
 type PropsType = { client: OctoClient };

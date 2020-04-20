@@ -18,9 +18,9 @@ const ORDER: PullRequestStateType[] = [
   "WAITING_ON_AUTHOR",
   "REQUIRES_RE_REVIEW",
   "READY_TO_LAND",
+  "MERGED",
   "UNKNOWN",
   "ABANDONED",
-  "MERGED",
 ];
 
 const SubSection = ({

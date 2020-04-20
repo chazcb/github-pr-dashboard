@@ -44,7 +44,13 @@ export default class OctoClient {
       const currentUser = await this.getCurrentUser();
       const [owner, name] = repo.full_name.split("/");
       const prs = await this.octokit.pulls
-        .list({ owner, repo: name, ...options })
+        .list({
+          owner,
+          repo: name,
+          sort: "updated",
+          direction: "desc",
+          ...options,
+        })
         .then(({ data }) => data);
 
       const reviews = await Promise.all(
@@ -83,7 +89,11 @@ export default class OctoClient {
     options: OptionsType = { state: "all", base: "master" }
   ) {
     const getPrs = (repo: RepoType) => this.listPrs(repo, options);
-    return _.flatten(await Promise.all(repos.map(getPrs)));
+    return _.orderBy(
+      _.flatten(await Promise.all(repos.map(getPrs))),
+      ({ item }) => item.updated_at,
+      "desc"
+    );
   }
 }
 
