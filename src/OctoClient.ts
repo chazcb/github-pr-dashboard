@@ -24,9 +24,11 @@ export default class OctoClient {
     return { item, repo };
   }
 
-  async getCurrentUser(): Promise<UserType> {
-    return this.octokit.request("/user").then(({ data }) => data);
-  }
+  getCurrentUser = _.memoize(
+    async (): Promise<UserType> => {
+      return this.octokit.request("/user").then(({ data }) => data);
+    }
+  );
 
   async listRepos(): Promise<RepoType[]> {
     const repos: RepoType[] = await this.octokit.repos
